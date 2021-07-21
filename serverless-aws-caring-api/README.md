@@ -7,7 +7,7 @@ See code here: Post
 - When a user gets registered or gets authorization it will create a new user in the db with userId, account_id, first_name, last_name, email, start_time, end_time, and expression_array, also passing these as request body. Initially, it will create the Day 1 expression array. 
 - Expression_array: It will be an array of arrays with a Day object and on that day it will contain an emotion array generated every second.
 - See the use in Face-Detection-App -> [here](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/Face-Detection/public/script.js#L69)
-- 
+
 Response Status code: 
 - 201: User successfully created.
 - 403: If a user with the same email id and account_id already exists. {message: 'User already exists'}.
