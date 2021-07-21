@@ -68,6 +68,7 @@ Response Status Code:
 
 - Return user’s average daily valence score data. We can filter according to which day to what day we need average valence score data.
 - See the use Dashboard here -> [Line Chart](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/caring-app/src/components/Dashboard/Dashboard.js#L321)
+
 Response Status Code: 
 - 200: Return the average_day data
 - 404: When user_id does not match. ({ message: 'User not found' }
