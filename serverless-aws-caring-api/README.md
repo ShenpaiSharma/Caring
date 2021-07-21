@@ -2,7 +2,6 @@
 
 
 ### POST-- {baseURL}/expression : 
-See code here: Post
 
 - When a user gets registered or gets authorization it will create a new user in the db with userId, account_id, first_name, last_name, email, start_time, end_time, and expression_array, also passing these as request body. Initially, it will create the Day 1 expression array. 
 - Expression_array: It will be an array of arrays with a Day object and on that day it will contain an emotion array generated every second.
