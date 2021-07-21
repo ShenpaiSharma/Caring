@@ -1,0 +1,79 @@
+org: shubhamsharma
+app: rest-api-serverless
+service: serverless-aws-caring-api
+
+frameworkVersion: '2'
+
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ap-south-1
+  lambdaHashingVersion: '20201221'
+
+functions:
+  app-api:
+    handler: handler.handler
+    events:
+      - http:
+          path: user/
+          method: get
+          cors: true
+      - http:
+          path: user/{proxy+}
+          method: any
+          cors: true
+      - http:
+          path: user/expression
+          method: post
+          cors: true
+      - http:
+          path: user/update/expression
+          method: put
+          cors: true
+      - http:
+          path: user/signin
+          method: post
+          cors: true
+      - http:
+          path: user/delete_user/{id}
+          method: delete
+          cors: true
+      - http:
+          path: user/expression/average_day/{id}
+          method: get
+          cors: true
+      - http:
+          path: user/expression/average_time/{id}
+          method: get
+          cors: true
+      - http:
+          path: user/valence/average_day/{id}
+          method: get
+          cors: true
+
+
+
+# org: shubhamsharma
+# app: rest-api-serverless
+# service: serverless-aws-caring-api
+
+# frameworkVersion: '2'
+
+
+# provider:
+#   name: aws
+#   runtime: nodejs12.x
+#   lambdaHashingVersion: '20201221'
+
+# functions:
+#   api:
+#     handler: handler.handler
+#     events:
+#       - http:
+#           path: /
+#           method: ANY
+#       - http:
+#           path: /{proxy+}
+#           method: ANY
+
