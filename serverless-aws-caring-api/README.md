@@ -1,22 +1,80 @@
-<!--
-title: 'Serverless Framework Node Express API on AWS'
-description: 'This template demonstrates how to develop and deploy a simple Node Express API running on AWS Lambda using the traditional Serverless Framework.'
-layout: Doc
-framework: v2
-platform: AWS
-language: nodeJS
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
+## API Endpoints
 
-# Serverless Framework Node Express API on AWS
 
-This template demonstrates how to develop and deploy a simple Node Express API service running on AWS Lambda using the traditional Serverless Framework.
+### POST-- {baseURL}/expression : 
 
-## Anatomy of the template
+- When a user gets registered or gets authorization it will create a new user in the db with userId, account_id, first_name, last_name, email, start_time, end_time, and expression_array, also passing these as request body. Initially, it will create the Day 1 expression array. 
+- Expression_array: It will be an array of arrays with a Day object and on that day it will contain an emotion array generated every second.
+- See the use in Face-Detection-App -> [here](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/Face-Detection/public/script.js#L69)
 
-This template configures a single function, `api`, which is responsible for handling all incoming requests thanks to configured `http` events. To learn more about `http` event configuration options, please refer to [http event docs](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/). As the events are configured in a way to accept all incoming requests, `express` framework is responsible for routing and handling requests internally. Implementation takes advantage of `serverless-http` package, which allows you to wrap existing `express` applications. To learn more about `serverless-http`, please refer to corresponding [GitHub repository](https://github.com/dougmoscrop/serverless-http).
+Response Status code: 
+- 201: User successfully created.
+- 403: If a user with the same email id and account_id already exists. {message: 'User already exists'}.
+- 500: Internal Server error.
+
+### PUT-- {baseURL}/update/expression :
+
+- For every successful registration or signin it will push the new day emotion array data of every second in the expression_array. For ex: When a user registers it will create a Day 1 emotion array and push it into the expression array and with signin it will push the new day emotion array data into the existing expression array.
+- It will take user_id, first_name, email, expression_array as a request body, and use the email to find the user to update.
+- See the use in Face-Detection-App: [here](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/Face-Detection/public/script.js#L146)
+
+Response Status Code:
+- 200: User Successfully updated.  {message: 'Successfully updated the user's emotion'}
+- 404: User not found, { message: 'User not found' }
+- 500: Internal Server error.
+
+### POST-- {baseURL}/signin :
+
+- This endpoint will help to validate the user, using their email and password. I used this in the Face Detection App to check the validity of the user.
+- It will take email and password as a request body. 
+- See the use in Face-Detection-App -> [here](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/Face-Detection/public/script.js#L107)
+
+Response Status Code: 
+- 200: User is valid.
+- 404: User is not valid. { message: 'error logging in }
+- 500: Internal Server Error
+
+### DELETE-- {baseURL}/delete_user/:id :
+
+- It will delete any user from the database. It will take user_id as request params of the user to be deleted.
+
+Response Status Code: 
+- 200: message: 'User Successfully deleted'
+- 404: { message: 'User not found' }
+- 500: Internal Server Error
+
+### GET-- {baseURL}/expression/average_time/:id?filter
+
+- It will filter the last day's emotion data recorded for every second. For ex: using filter 5 will take the average emotion of every 5 second data and will reduce the extensive clutter produced by each and every second data, also it will try to reduce the load on the dashboard by showing average data according to user needs.
+- See the use in Dashboard code here -> [Line Chart](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/caring-app/src/components/Dashboard/Dashboard.js#L131) and [Pie Chart](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/caring-app/src/components/Dashboard/Dashboard.js#L75)
+
+Response Status Code: 
+- 200: Return the avg_time data
+- 404: When user_id does not match. ({ message: 'User not found' }
+- 500: Internal Server Error
+
+### GET-- {baseURL}/expression/average_day/:id?from&to
+
+- Return user’s average daily emotion data. We can filter according to which day to what day we need average emotion score data.
+- See the use in Dashboard code here -> [Line Chart](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/caring-app/src/components/Dashboard/Dashboard.js#L228)
+
+Response Status Code: 
+- 200: Return the average_day data
+- 404: When user_id does not match. ({ message: 'User not found' }
+- 500: Internal Server Error
+
+### GET-- {baseURL}/valence/average_day/:id?from&to
+
+- Return user’s average daily valence score data. We can filter according to which day to what day we need average valence score data.
+- See the use Dashboard here -> [Line Chart](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/caring-app/src/components/Dashboard/Dashboard.js#L321)
+
+Response Status Code: 
+- 200: Return the average_day data
+- 404: When user_id does not match. ({ message: 'User not found' }
+- 500: Internal Server Error
+
+
+
 
 ## Usage
 
@@ -40,80 +98,6 @@ and then perform deployment with:
 
 ```
 serverless deploy
-```
-
-After running deploy, you should see output similar to:
-
-```bash
-Serverless: Packaging service...
-Serverless: Excluding development dependencies...
-Serverless: Creating Stack...
-Serverless: Checking Stack create progress...
-........
-Serverless: Stack create finished...
-Serverless: Uploading CloudFormation file to S3...
-Serverless: Uploading artifacts...
-Serverless: Uploading service aws-node-express-api.zip file to S3 (711.23 KB)...
-Serverless: Validating template...
-Serverless: Updating Stack...
-Serverless: Checking Stack update progress...
-.................................
-Serverless: Stack update finished...
-Service Information
-service: aws-node-express-api
-stage: dev
-region: us-east-1
-stack: aws-node-express-api-dev
-resources: 12
-api keys:
-  None
-endpoints:
-  ANY - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/
-  ANY - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/{proxy+}
-functions:
-  api: aws-node-express-api-dev-api
-layers:
-  None
-```
-
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [http event docs](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/).
-
-### Invocation
-
-After successful deployment, you can call the created application via HTTP:
-
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/
-```
-
-Which should result in the following response:
-
-```
-{"message":"Hello from root!"}
-```
-
-Calling the `/hello` path with:
-
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/hello
-```
-
-Should result in the following response:
-
-```bash
-{"message":"Hello from path!"}
-```
-
-If you try to invoke a path or method that does not have a configured handler, e.g. with:
-
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/nonexistent
-```
-
-You should receive the following response:
-
-```bash
-{"error":"Not Found"}
 ```
 
 ### Local development
