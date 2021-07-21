@@ -1,9 +1,7 @@
 # Caring-App
-<<<<<<< HEAD
-=======
+
 Web Application that detects facial emotion while Video communication and users can see their analyzed emotion data on its Dashboard
 
->>>>>>> 8c0e254c18dd3bfee8c36af974edf11185c3e76c
 
 # Face-Detection-Application : 
 It uses face-api to generate emotion data. Register through this application and it will start detecting emotion data every second and the user can see analysed emotion data on its dashboard.
