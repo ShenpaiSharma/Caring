@@ -5,7 +5,7 @@
 
 - When a user gets registered or gets authorization it will create a new user in the db with userId, account_id, first_name, last_name, email, start_time, end_time, and expression_array, also passing these as request body. Initially, it will create the Day 1 expression array. 
 - Expression_array: It will be an array of arrays with a Day object and on that day it will contain an emotion array generated every second.
-- See the use in Face-Detection-App -> [here](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/Face-Detection/public/script.js#L69)
+- See the use in Face-Detection-App -> [here](https://github.com/ShenpaiSharma/Caring/blob/c18593cb7a4ff0bdb0d0530824df895f392f5f10/caring-app/public/script.js#L69)
 
 Response Status code: 
 - 201: User successfully created.
@@ -16,7 +16,7 @@ Response Status code:
 
 - For every successful registration or signin it will push the new day emotion array data of every second in the expression_array. For ex: When a user registers it will create a Day 1 emotion array and push it into the expression array and with signin it will push the new day emotion array data into the existing expression array.
 - It will take user_id, first_name, email, expression_array as a request body, and use the email to find the user to update.
-- See the use in Face-Detection-App: [here](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/Face-Detection/public/script.js#L146)
+- See the use in Face-Detection-App: [here](https://github.com/ShenpaiSharma/Caring/blob/c18593cb7a4ff0bdb0d0530824df895f392f5f10/caring-app/public/script.js#L146)
 
 Response Status Code:
 - 200: User Successfully updated.  {message: 'Successfully updated the user's emotion'}
@@ -27,7 +27,7 @@ Response Status Code:
 
 - This endpoint will help to validate the user, using their email and password. I used this in the Face Detection App to check the validity of the user.
 - It will take email and password as a request body. 
-- See the use in Face-Detection-App -> [here](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/Face-Detection/public/script.js#L107)
+- See the use in Face-Detection-App -> [here](https://github.com/ShenpaiSharma/Caring/blob/c18593cb7a4ff0bdb0d0530824df895f392f5f10/caring-app/public/script.js#L107)
 
 Response Status Code: 
 - 200: User is valid.
@@ -46,7 +46,7 @@ Response Status Code:
 ### GET-- {baseURL}/expression/average_time/:id?filter
 
 - It will filter the last day's emotion data recorded for every second. For ex: using filter 5 will take the average emotion of every 5 second data and will reduce the extensive clutter produced by each and every second data, also it will try to reduce the load on the dashboard by showing average data according to user needs.
-- See the use in Dashboard code here -> [Line Chart](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/caring-app/src/components/Dashboard/Dashboard.js#L131) and [Pie Chart](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/caring-app/src/components/Dashboard/Dashboard.js#L75)
+- See the use in Dashboard code here -> [Line Chart](https://github.com/ShenpaiSharma/Caring/blob/c18593cb7a4ff0bdb0d0530824df895f392f5f10/caring-dashboard/src/components/Dashboard/Dashboard.js#L131) and [Pie Chart](https://github.com/ShenpaiSharma/Caring/blob/c18593cb7a4ff0bdb0d0530824df895f392f5f10/caring-dashboard/src/components/Dashboard/Dashboard.js#L75)
 
 Response Status Code: 
 - 200: Return the avg_time data
@@ -56,7 +56,7 @@ Response Status Code:
 ### GET-- {baseURL}/expression/average_day/:id?from&to
 
 - Return user’s average daily emotion data. We can filter according to which day to what day we need average emotion score data.
-- See the use in Dashboard code here -> [Line Chart](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/caring-app/src/components/Dashboard/Dashboard.js#L228)
+- See the use in Dashboard code here -> [Line Chart](https://github.com/ShenpaiSharma/Caring/blob/c18593cb7a4ff0bdb0d0530824df895f392f5f10/caring-dashboard/src/components/Dashboard/Dashboard.js#L229)
 
 Response Status Code: 
 - 200: Return the average_day data
@@ -66,7 +66,7 @@ Response Status Code:
 ### GET-- {baseURL}/valence/average_day/:id?from&to
 
 - Return user’s average daily valence score data. We can filter according to which day to what day we need average valence score data.
-- See the use Dashboard here -> [Line Chart](https://github.com/ShenpaiSharma/Caring-App/blob/535c9c4767bafeec4c0bc770c89e349f67ae59d3/caring-app/src/components/Dashboard/Dashboard.js#L321)
+- See the use Dashboard here -> [Line Chart](https://github.com/ShenpaiSharma/Caring/blob/c18593cb7a4ff0bdb0d0530824df895f392f5f10/caring-dashboard/src/components/Dashboard/Dashboard.js#L322)
 
 Response Status Code: 
 - 200: Return the average_day data
